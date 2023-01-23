@@ -1,6 +1,13 @@
 import os
 import pandas as pd
-from torchvision.io import read_image
+from torchvision import transforms
+from PIL import Image
+from torch.utils.data import Dataset
+
+def read_image(path):
+    img = Image.open(path)
+    transform = transforms.Compose([transforms.ToTensor()])
+    return transform(img)
 
 class WikiArtLoader(Dataset):
     def __init__(self, annotations_file, img_dir, transform=None, target_transform=None):
@@ -14,6 +21,7 @@ class WikiArtLoader(Dataset):
 
     def __getitem__(self, idx):
         img_path = os.path.join(self.img_dir, self.img_labels.iloc[idx, 0])
+
         image = read_image(img_path)
         label = self.img_labels.iloc[idx, 1]
         

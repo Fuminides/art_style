@@ -14,6 +14,11 @@ args_dict = parser.parser.parse_args()
 
 model = models.resnet()
 model.load_state_dict(torch.load('model.pt'))
+
+
+if torch.cuda.is_available():
+    model = model.cuda()
+    
 cluster_path = '/home/jfumanal/SemArt'
 
 

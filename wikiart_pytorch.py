@@ -52,6 +52,10 @@ from torchvision import models
 resnet = models.resnet50(pretrained=True)
 
 model = resnet()
+
+if torch.cuda.is_available():
+    model = model.cuda()
+    
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
 
