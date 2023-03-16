@@ -48,7 +48,7 @@ test_dataloader = DataLoader(test_data, batch_size=args.batch_size, shuffle=True
 from torchvision import models
 resnet = models.resnet50(pretrained=True)
 
-model = resnet()
+model = resnet
 
 if torch.cuda.is_available():
     model = model.cuda()
