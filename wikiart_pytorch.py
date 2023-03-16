@@ -31,18 +31,18 @@ train_transforms = transforms.Compose([
         transforms.RandomCrop(224),                         # random crop within the center crop (data augmentation)
         transforms.RandomHorizontalFlip(),                  # random horizontal flip (data augmentation)
         transforms.ToTensor(),                              # to pytorch tensor
-        transforms.Lambda(lambda x: x.to(device)),
         transforms.Normalize(mean=[0.485, 0.456, 0.406, ],  # ImageNet mean substraction
-                             std=[0.229, 0.224, 0.225])
+                             std=[0.229, 0.224, 0.225]),
+        transforms.Lambda(lambda x: x.to(device))
     ])
 
 val_transforms = transforms.Compose([
     transforms.Resize(256),                             # rescale the image keeping the original aspect ratio
     transforms.CenterCrop(224),                         # we get only the center of that rescaled
     transforms.ToTensor(),                              # to pytorch tensor
-    transforms.Lambda(lambda x: x.to(device)),
     transforms.Normalize(mean=[0.485, 0.456, 0.406, ],  # ImageNet mean substraction
-                            std=[0.229, 0.224, 0.225])
+                            std=[0.229, 0.224, 0.225]),
+    transforms.Lambda(lambda x: x.to(device))
 ])
 
 train_data = wikiart_loader.WikiArtLoader(df_styles_train, train_path, transform=train_transforms)
