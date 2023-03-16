@@ -59,68 +59,6 @@ if torch.cuda.is_available():
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
 
-# Define the train function
-def train(epochs):
-    for epoch in range(epochs):
-        running_loss = 0.0
-        for i, data in enumerate(train_dataloader, 0):
-            inputs, labels = dataimport torch
-import torch.nn as nn
-import torch.optim as optim
-
-from torchvision import datasets, transforms
-from torch.utils.data import DataLoader
-import wikiart_loader
-import pandas as pd
-
-import parser
-
-args = parser.parser.parse_args()
-cluster_path = args.data_path
-
-train_path = cluster_path 
-test_path = cluster_path 
-
-
-df_styles_train = pd.read_csv(train_path + args.train_file)
-df_styles_test = pd.read_csv(train_path + args.val_file)
-
-
-train_transforms = transforms.Compose([
-        transforms.Resize(256),                             # rescale the image keeping the original aspect ratio
-        transforms.CenterCrop(256),                         # we get only the center of that rescaled
-        transforms.RandomCrop(224),                         # random crop within the center crop (data augmentation)
-        transforms.RandomHorizontalFlip(),                  # random horizontal flip (data augmentation)
-        transforms.ToTensor(),                              # to pytorch tensor
-        transforms.Normalize(mean=[0.485, 0.456, 0.406, ],  # ImageNet mean substraction
-                             std=[0.229, 0.224, 0.225])
-    ])
-
-val_transforms = transforms.Compose([
-    transforms.Resize(256),                             # rescale the image keeping the original aspect ratio
-    transforms.CenterCrop(224),                         # we get only the center of that rescaled
-    transforms.ToTensor(),                              # to pytorch tensor
-    transforms.Normalize(mean=[0.485, 0.456, 0.406, ],  # ImageNet mean substraction
-                            std=[0.229, 0.224, 0.225])
-])
-
-train_data = wikiart_loader.WikiArtLoader(df_styles_train, train_path, transform=train_transforms)
-test_data = wikiart_loader.WikiArtLoader(df_styles_test, test_path, transform=val_transforms)
-
-train_dataloader = DataLoader(train_data, batch_size=args.batch_size, shuffle=True)
-test_dataloader = DataLoader(test_data, batch_size=args.batch_size, shuffle=True)
-
-# Define the model, loss function and optimizer
-from torchvision import models
-resnet = models.resnet50(pretrained=True)
-
-model = resnet()
-
-if torch.cuda.is_available():
-    model = model.cuda()
-    
-criterion = nn.CrossEntropyLoss()
-optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
 
 # Define the train function
 def train(epochs):
