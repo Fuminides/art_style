@@ -16,8 +16,8 @@ train_path = cluster_path
 test_path = cluster_path 
 
 
-df_styles_train = pd.read_csv(train_path + args.train_file)
-df_styles_test = pd.read_csv(test_path + args.val_file)
+df_styles_train = pd.read_csv(train_path + args.train_file, index_col=0)
+df_styles_test = pd.read_csv(test_path + args.val_file, index_col=0)
 
 
 train_transforms = transforms.Compose([
