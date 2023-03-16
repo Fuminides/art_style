@@ -20,7 +20,6 @@ class WikiArtLoader(Dataset):
         return len(self.img_labels)
 
     def __getitem__(self, idx):
-        print(self.img_labels.iloc[idx])
         img_path = os.path.join(self.img_dir, self.img_labels.iloc[idx, 0])
 
         image = read_image(img_path)
