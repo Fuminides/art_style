@@ -67,7 +67,7 @@ def train(epochs):
         running_loss = 0.0
         for i, data in enumerate(train_dataloader):
             inputs, labels = data
-
+            labels = labels.to(device)
             # Clear the gradients
             optimizer.zero_grad()
 
