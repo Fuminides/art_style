@@ -61,7 +61,7 @@ optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
 def train(epochs):
     for epoch in range(epochs):
         running_loss = 0.0
-        for i, data in enumerate(train_dataloader, 0):
+        for i, data in enumerate(train_dataloader):
             inputs, labels = data
 
             # Clear the gradients
