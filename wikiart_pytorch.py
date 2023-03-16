@@ -19,6 +19,8 @@ test_path = cluster_path
 df_styles_train = pd.read_csv(train_path + args.train_file, index_col=0)
 df_styles_test = pd.read_csv(test_path + args.val_file, index_col=0)
 
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
 
 train_transforms = transforms.Compose([
         transforms.Resize(256),                             # rescale the image keeping the original aspect ratio
@@ -26,6 +28,7 @@ train_transforms = transforms.Compose([
         transforms.RandomCrop(224),                         # random crop within the center crop (data augmentation)
         transforms.RandomHorizontalFlip(),                  # random horizontal flip (data augmentation)
         transforms.ToTensor(),                              # to pytorch tensor
+        transforms.Lambda(lambda x: x.to(device)),
         transforms.Normalize(mean=[0.485, 0.456, 0.406, ],  # ImageNet mean substraction
                              std=[0.229, 0.224, 0.225])
     ])
@@ -34,6 +37,7 @@ val_transforms = transforms.Compose([
     transforms.Resize(256),                             # rescale the image keeping the original aspect ratio
     transforms.CenterCrop(224),                         # we get only the center of that rescaled
     transforms.ToTensor(),                              # to pytorch tensor
+    transforms.Lambda(lambda x: x.to(device)),
     transforms.Normalize(mean=[0.485, 0.456, 0.406, ],  # ImageNet mean substraction
                             std=[0.229, 0.224, 0.225])
 ])
@@ -47,11 +51,8 @@ test_dataloader = DataLoader(test_data, batch_size=args.batch_size, shuffle=True
 # Define the model, loss function and optimizer
 from torchvision import models
 resnet = models.resnet50(pretrained=True)
-
 model = resnet
-
-if torch.cuda.is_available():
-    model = model.cuda()
+model = model.to(device)
     
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
