@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 
-from torchvision import datasets, transforms
+from torchvision import datasets, transforms, models
 from torch.utils.data import DataLoader
 import wikiart_loader
 import pandas as pd
@@ -52,7 +52,6 @@ train_dataloader = DataLoader(train_data, batch_size=args.batch_size, shuffle=Tr
 test_dataloader = DataLoader(test_data, batch_size=args.batch_size, shuffle=True)
 
 # Define the model, loss function and optimizer
-from torchvision import models
 resnet = models.resnet50(pretrained=True)
 model = resnet
 model = model.to(device)
@@ -102,6 +101,7 @@ def test():
     with torch.no_grad():
         for data in test_dataloader:
             images, labels = data
+            labels = labels.to(device)
             outputs = model(images)
             _, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)

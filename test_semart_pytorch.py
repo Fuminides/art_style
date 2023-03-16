@@ -64,6 +64,7 @@ for ix, set_loader in enumerate([semart_train_loader, semart_val_loader, semart_
     with torch.no_grad():
         for data in set_loader:
             inputs, labels = data
+            labels = labels.to(device)
             outputs = model(inputs)
             _, predicted = torch.max(outputs.data, 1)
             predictions.append(predicted)
