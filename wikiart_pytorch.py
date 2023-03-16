@@ -82,17 +82,17 @@ def train(epochs):
 
             # Print statistics
             running_loss += loss.item()
-            if i % 1 == 0:    # print every 2000 mini-batches
-                print('[%d, %5d] loss: %.3f' %
-                      (epoch + 1, i + 1, running_loss / 2000))
-                running_loss = 0.0
-                torch.save({
-                    'epoch': epoch,
-                    'model_state_dict': model.state_dict(),
-                    'optimizer_state_dict': optimizer.state_dict(),
-                    'loss': loss,
-                    }, args.model_path.split('.')[0] + '_checkpoint.pt')
-            
+            #if i % 10 == 0:    # print every 10 mini-batches
+        print('[%d, %5d] loss: %.3f' %
+                (epoch + 1, i + 1, running_loss / 2000))
+        running_loss = 0.0
+    torch.save({
+        'epoch': epoch,
+        'model_state_dict': model.state_dict(),
+        'optimizer_state_dict': optimizer.state_dict(),
+        'loss': loss,
+        }, args.model_path.split('.')[0] + '_checkpoint.pt')
+    
     print('Finished Training')
 
 # Define the test function
