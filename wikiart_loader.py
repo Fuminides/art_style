@@ -11,7 +11,7 @@ def read_image(path):
 
 class WikiArtLoader(Dataset):
     def __init__(self, annotations_file, img_dir, transform=None, target_transform=None):
-        self.img_labels = pd.read_csv(annotations_file)
+        self.img_labels = annotations_file
         self.img_dir = img_dir
         self.transform = transform
         self.target_transform = target_transform
