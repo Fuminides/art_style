@@ -20,7 +20,10 @@ df_styles_train = pd.read_csv(train_path + args.train_file, index_col=0)
 df_styles_test = pd.read_csv(test_path + args.val_file, index_col=0)
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
+if device == "cpu":
+    print("Training on CPU")
+else:
+    print("Training on GPU")
 
 train_transforms = transforms.Compose([
         transforms.Resize(256),                             # rescale the image keeping the original aspect ratio
