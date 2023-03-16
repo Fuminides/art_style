@@ -17,10 +17,7 @@ test_path = cluster_path
 
 
 df_styles_train = pd.read_csv(train_path + args.train_file)
-
-
-df_styles_train = df_styles_global.sample(frac=1-test_proportion, random_state=200)
-df_styles_test = df_styles_global.drop(df_styles_train.index)
+df_styles_test = pd.read_csv(test_path + args.val_file)
 
 
 train_transforms = transforms.Compose([
