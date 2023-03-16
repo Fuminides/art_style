@@ -83,8 +83,8 @@ def train(epochs):
             # Print statistics
             running_loss += loss.item()
             #if i % 10 == 0:    # print every 10 mini-batches
-        print('[%d, %5d] loss: %.3f' %
-                (epoch + 1, i + 1, running_loss / 2000))
+        print('Loss: %.3f' %
+                (running_loss / len(train_dataloader)))
         running_loss = 0.0
     torch.save({
         'epoch': epoch,
