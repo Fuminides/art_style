@@ -6,8 +6,8 @@ from torch.utils.data import Dataset
 
 def read_image(path):
     img = Image.open(path)
-    transform = transforms.Compose([transforms.ToTensor()])
-    return transform(img)
+    # transform = transforms.Compose([transforms.ToTensor()])
+    return img 
 
 class WikiArtLoader(Dataset):
     def __init__(self, annotations_file, img_dir, transform=None, target_transform=None):
