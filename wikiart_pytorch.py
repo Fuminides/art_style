@@ -65,6 +65,7 @@ optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
 def train(epochs):
     for epoch in range(epochs):
         running_loss = 0.0
+        print('Epoch {}/{}'.format(epoch, epochs - 1))
         for i, data in enumerate(train_dataloader):
             inputs, labels = data
             labels = labels.to(device)
@@ -81,7 +82,7 @@ def train(epochs):
 
             # Print statistics
             running_loss += loss.item()
-            if i % 2000 == 1999:    # print every 2000 mini-batches
+            if i % 1 == 0:    # print every 2000 mini-batches
                 print('[%d, %5d] loss: %.3f' %
                       (epoch + 1, i + 1, running_loss / 2000))
                 running_loss = 0.0
