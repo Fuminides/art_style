@@ -25,8 +25,13 @@ class WikiArtLoader(Dataset):
         image = read_image(img_path)
         label = self.img_labels.iloc[idx, 1]
         
-        if self.transform:
-            image = self.transform(image)
-        if self.target_transform:
-            label = self.target_transform(label)
+        try:
+            if self.transform:
+                image = self.transform(image)
+            if self.target_transform:
+                label = self.target_transform(label)
+        except:
+            print("Error in transform")
+            return None, None
+        
         return image, label
