@@ -3,6 +3,7 @@ import pandas as pd
 from torchvision import transforms
 from PIL import Image
 from torch.utils.data import Dataset
+import torch
 
 def read_image(path):
     img = Image.open(path)
@@ -30,8 +31,14 @@ class WikiArtLoader(Dataset):
                 image = self.transform(image)
             if self.target_transform:
                 label = self.target_transform(label)
-        except:
+        except IOError:
             print("Error in transform")
-            return None, None
+            dummy_torch = torch.rand(256, 256)
+            dummy_label = 0
+            device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+            dummy_torch = dummy_torch.to(device)
+            
+            return dummy_torch, dummy_label
         
         return image, label
