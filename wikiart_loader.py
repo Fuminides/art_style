@@ -33,7 +33,7 @@ class WikiArtLoader(Dataset):
                 label = self.target_transform(label)
         except IOError:
             print("Error in transform")
-            dummy_torch = torch.rand(256, 256)
+            dummy_torch = torch.rand(224, 224)
             dummy_label = 0
             device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
