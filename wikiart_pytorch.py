@@ -81,7 +81,7 @@ def train(epochs):
             optimizer.step()
 
             # Print statistics
-            running_loss += loss.item() * inputs.size(0)
+            running_loss += loss.item() / (args.batch_size * (i+1))
 
             if i % 10 == 0:    # print every 50 mini-batches
                 print('Loss: {:.4f}, Batch {} / {}'.format(running_loss , i, int(len(train_data) / args.batch_size)))
