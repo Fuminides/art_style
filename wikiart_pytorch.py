@@ -84,7 +84,7 @@ def train(epochs):
             running_loss += loss.item()
             if i % 50 == 0:    # print every 50 mini-batches
                 print('Loss: %.3f, Batch %d / %d' %
-                        (running_loss / len(train_dataloader), i, int(data.shape[0] / len(train_dataloader))))
+                        (running_loss / len(train_dataloader), i, int(inputs.shape[0] / len(train_dataloader))))
                 
         running_loss = 0.0
 
