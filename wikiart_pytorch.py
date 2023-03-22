@@ -84,7 +84,7 @@ def train(epochs):
             running_loss += loss.item()
             if i % 50 == 0:    # print every 50 mini-batches
                 print('Loss: %.3f, Batch %d / %d' %
-                        (running_loss / len(train_dataloader), i, int(labels.shape[0] / train_dataloader.dataset.__len__())))
+                        (running_loss / len(train_dataloader), i, int(len(train_data) / args.batch_size)))
                 
         running_loss = 0.0
 
@@ -114,7 +114,7 @@ def test():
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
 
-    print('Accuracy of the network on the 10000 test images: %d %%' % (
+    print('Accuracy of the network on the val images: %d %%' % (
         100 * correct / total))
     
     return correct / total
