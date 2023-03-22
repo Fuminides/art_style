@@ -45,8 +45,8 @@ val_transforms = transforms.Compose([
     transforms.Lambda(lambda x: x.to(device))
 ])
 
-train_data = wikiart_loader.WikiArtLoader(df_styles_train, train_path, transform=train_transforms)
-test_data = wikiart_loader.WikiArtLoader(df_styles_test, test_path, transform=val_transforms)
+train_data = wikiart_loader.WikiArtLoader(df_styles_train, train_path, transform=train_transforms, samples=args.samples)
+test_data = wikiart_loader.WikiArtLoader(df_styles_test, test_path, transform=val_transforms, samples=args.samples)
 
 train_dataloader = DataLoader(train_data, batch_size=args.batch_size, shuffle=True)
 test_dataloader = DataLoader(test_data, batch_size=args.batch_size, shuffle=True)

@@ -11,8 +11,11 @@ def read_image(path):
     return img 
 
 class WikiArtLoader(Dataset):
-    def __init__(self, annotations_file, img_dir, transform=None, target_transform=None):
-        self.img_labels = annotations_file
+    def __init__(self, annotations_file, img_dir, transform=None, target_transform=None, samples=1.0):
+        if samples < 1.0:
+            self.img_labels = annotations_file.sample(frac=samples)
+        else:
+            self.img_labels = annotations_file
         self.img_dir = img_dir
         self.transform = transform
         self.target_transform = target_transform
