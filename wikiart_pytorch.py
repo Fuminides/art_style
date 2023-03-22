@@ -59,7 +59,7 @@ model = model.to(device)
     
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=0.001, momentum=0.9)
-
+best = 0
 
 # Define the train function
 def train(epochs):
@@ -86,12 +86,17 @@ def train(epochs):
         print('Loss: %.3f' %
                 (running_loss / len(train_dataloader)))
         running_loss = 0.0
-    torch.save({
-        'epoch': epoch,
-        'model_state_dict': model.state_dict(),
-        'optimizer_state_dict': optimizer.state_dict(),
-        'loss': loss,
-        }, args.model_path.split('.')[0] + '_checkpoint.pt')
+
+    accuracy = test()
+    print('Accuracy in val: ', accuracy)
+
+    if accuracy > best:
+        torch.save({
+            'epoch': epoch,
+            'model_state_dict': model.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict(),
+            'loss': loss,
+            }, args.model_path.split('.')[0] + '_checkpoint.pt')
     
     print('Finished Training')
 
