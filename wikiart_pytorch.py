@@ -51,6 +51,7 @@ test_data = wikiart_loader.WikiArtLoader(df_styles_test, test_path, transform=va
 train_dataloader = DataLoader(train_data, batch_size=args.batch_size, shuffle=True)
 test_dataloader = DataLoader(test_data, batch_size=args.batch_size, shuffle=True)
 
+print("Train data size: ", len(train_data))
 # Define the model, loss function and optimizer
 resnet = models.resnet50(pretrained=True)
 model = resnet
