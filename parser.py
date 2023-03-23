@@ -18,3 +18,5 @@ parser.add_argument('--csvtrain', default='semart_train.csv', help='Training set
 parser.add_argument('--csvval', default='semart_val.csv', help='Dataset val data file')
 parser.add_argument('--csvtest', default='semart_test.csv', help='Dataset test data file')
 parser.add_argument('--dir_images', default='Images/')
+parser.add_argument('--workers', default=0, type=int)
+
