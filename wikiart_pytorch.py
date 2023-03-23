@@ -5,6 +5,7 @@ import torch.optim as optim
 from torchvision import datasets, transforms, models
 from torch.utils.data import DataLoader
 import wikiart_loader
+from wikiArtResnet import ResnetArt
 import pandas as pd
 
 import parser
@@ -53,8 +54,8 @@ test_dataloader = DataLoader(test_data, batch_size=args.batch_size, shuffle=True
 
 print("Train data size: ", len(train_data))
 # Define the model, loss function and optimizer
-resnet = models.resnet50(pretrained=True)
-model = resnet
+
+model = ResnetArt(25)
 model = model.to(device)
     
 criterion = nn.CrossEntropyLoss()

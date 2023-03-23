@@ -9,10 +9,11 @@ import numpy as np
 from torchvision import models
 from semart_loader import ArtDatasetMTL
 import parser
+from wikiArtResnet import ResnetArt
 
 args_dict = parser.parser.parse_args()
 
-model = models.resnet50()
+model = ResnetArt(25)
 model_checkpoint = torch.load(args_dict.model_path)
 model.load_state_dict(model_checkpoint['model_state_dict'])
 print('Loaded model from checkpoint in epoch: ', model_checkpoint['epoch'])
@@ -78,6 +79,6 @@ for ix, set_loader in enumerate([train_loader, val_loader, test_loader]):
                 predictions = np.concatenate((predictions, outputs.cpu().numpy()), axis=0)
             
             img_names += img_name
-    
+
             pd.DataFrame(predictions).to_csv('style_predictions_' + sets_name[ix] + '.csv', index=img_names, columns=style_names)
 
