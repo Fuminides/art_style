@@ -21,14 +21,14 @@ class ArtDatasetMTL(data.Dataset):
 
         # Load data
         if self.set == 'train':
-            textfile = os.path.join(args_dict.dir_dataset, args_dict.csvtrain)
+            textfile = os.path.join(args_dict.semart_path, args_dict.csvtrain)
         elif self.set == 'val':
-            textfile = os.path.join(args_dict.dir_dataset, args_dict.csvval)
+            textfile = os.path.join(args_dict.semart_path, args_dict.csvval)
         elif self.set == 'test':
-            textfile = os.path.join(args_dict.dir_dataset, args_dict.csvtest)
+            textfile = os.path.join(args_dict.semart_path, args_dict.csvtest)
         df = pd.read_csv(textfile, delimiter='\t', encoding='Cp1252')
 
-        self.imagefolder = os.path.join(args_dict.dir_dataset, args_dict.dir_images)
+        self.imagefolder = os.path.join(args_dict.semart_path, args_dict.dir_images)
         self.transform = transform
 
         self.imageurls = list(df['IMAGE_FILE'])
