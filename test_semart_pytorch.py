@@ -20,7 +20,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 model = model.to(device)
     
 cluster_path = args_dict.semart_path
-
+style_names = ['Abstract_Expressionism', 'Cubism', 'Expressionism', 'Fauvism', 'Impressionism', 'Minimalism', 'Naive_Art_Primitivism', 'Pop_Art', 'Post_Impressionism', 'Realism', 'Rococo', 'Romanticism', 'Surrealism', 'Symbolism', 'Ukiyo_e']
 
 train_transforms = transforms.Compose([
         transforms.Resize(256),                             # rescale the image keeping the original aspect ratio
@@ -63,8 +63,9 @@ model.eval()
 sets_name = ['train', 'val', 'test']
 for ix, set_loader in enumerate([train_loader, val_loader, test_loader]):
     # Make predictions on the test set
+    img_names = []
     with torch.no_grad():
-        for ix, data in enumerate(set_loader):
+        for ix, (data, img_name) in enumerate(set_loader):
             inputs = data
             inputs = inputs.to(device)
             
@@ -76,6 +77,7 @@ for ix, set_loader in enumerate([train_loader, val_loader, test_loader]):
             else:
                 predictions = np.concatenate((predictions, outputs.cpu().numpy()), axis=0)
             
+            img_names.append(img_name)
     
-    pd.DataFrame(predictions).to_csv('style_predictions_' + sets_name[ix] + '.csv', index=False)
+    pd.DataFrame(predictions).to_csv('style_predictions_' + sets_name[ix] + '.csv', index=img_names, columns=style_names)
 
