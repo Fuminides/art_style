@@ -91,7 +91,6 @@ def train(epochs):
         running_loss = 0.0
 
         accuracy = test()
-        print('Accuracy in val: ', accuracy)
 
         if accuracy > best:
             torch.save({
