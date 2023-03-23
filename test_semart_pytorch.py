@@ -55,7 +55,7 @@ print('Validation loader with %d samples' % semart_val_loader.__len__())
 test_loader = torch.utils.data.DataLoader(
     semart_test_loader,
     batch_size=args_dict.batch_size, shuffle=True, pin_memory=True, num_workers=args_dict.workers)
-print('Validation loader with %d samples' % semart_val_loader.__len__())
+print('Test loader with %d samples' % semart_val_loader.__len__())
 
 # Set the model to evaluation mode
 model.eval()
@@ -63,15 +63,19 @@ model.eval()
 sets_name = ['train', 'val', 'test']
 for ix, set_loader in enumerate([train_loader, val_loader, test_loader]):
     # Make predictions on the test set
-    predictions = []
     with torch.no_grad():
-        for data in set_loader:
+        for ix, data in enumerate(set_loader):
             inputs = data
             inputs = inputs.to(device)
             
             outputs = model(inputs)
+
             # _, predicted = torch.max(outputs.data, 1)
-            predictions.append(outputs.cpu().numpy())
+            if ix == 0:
+                predictions = outputs.cpu().numpy()
+            else:
+                predictions = np.concatenate((predictions, outputs.cpu().numpy()), axis=0)
+            
     
     pd.DataFrame(predictions).to_csv('style_predictions_' + sets_name[ix] + '.csv', index=False)
 
