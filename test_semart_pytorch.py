@@ -77,7 +77,7 @@ for ix, set_loader in enumerate([train_loader, val_loader, test_loader]):
             else:
                 predictions = np.concatenate((predictions, outputs.cpu().numpy()), axis=0)
             
-            img_names.append(img_name)
+            img_names += img_name
     
     pd.DataFrame(predictions).to_csv('style_predictions_' + sets_name[ix] + '.csv', index=img_names, columns=style_names)
 
