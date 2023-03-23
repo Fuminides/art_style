@@ -12,7 +12,7 @@ import parser
 
 args_dict = parser.parser.parse_args()
 
-model = models.resnet()
+model = models.resnet50
 model_checkpoint = torch.load(args_dict.model_path)
 model.load_state_dict(model_checkpoint['model_state_dict'])
 print('Loaded model from checkpoint in epoch: ', model_checkpoint['epoch'])
