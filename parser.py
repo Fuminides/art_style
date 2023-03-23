@@ -17,3 +17,4 @@ parser.add_argument('--semart_path', type=str, help='Path to the semart dataset'
 parser.add_argument('--csvtrain', default='semart_train.csv', help='Training set data file')
 parser.add_argument('--csvval', default='semart_val.csv', help='Dataset val data file')
 parser.add_argument('--csvtest', default='semart_test.csv', help='Dataset test data file')
+parser.add_argument('--dir_images', default='Images/')
