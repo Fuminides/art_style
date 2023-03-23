@@ -14,3 +14,6 @@ parser.add_argument('--val_file', type=str, default='test.csv', help='Path to th
 parser.add_argument('--samples', type=float, default=1.0, help='Fraction of samples to use')
 parser.add_argument('--model_path', type=str, help='Path to the model')
 parser.add_argument('--semart_path', type=str, help='Path to the semart dataset')
+parser.add_argument('--csvtrain', default='semart_train.csv', help='Training set data file')
+parser.add_argument('--csvval', default='semart_val.csv', help='Dataset val data file')
+parser.add_argument('--csvtest', default='semart_test.csv', help='Dataset test data file')
