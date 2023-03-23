@@ -7,7 +7,7 @@ from PIL import Image
 
 class ArtDatasetMTL(data.Dataset):
 
-    def __init__(self, args_dict, set, att2i, transform = None):
+    def __init__(self, args_dict, set, transform = None):
         """
         Args:
             args_dict: parameters dictionary
