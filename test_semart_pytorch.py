@@ -72,5 +72,5 @@ for ix, set_loader in enumerate([train_loader, val_loader, test_loader]):
             # _, predicted = torch.max(outputs.data, 1)
             predictions.append(outputs.cpu().numpy())
     
-    pd.DataFrame(predictions).to_csv(cluster_path + '/predictions_' + sets_name[ix] + '.csv', index=False)
+    pd.DataFrame(predictions).to_csv('style_predictions_' + sets_name[ix] + '.csv', index=False)
 
