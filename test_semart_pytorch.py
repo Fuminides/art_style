@@ -67,6 +67,7 @@ for ix, set_loader in enumerate([train_loader, val_loader, test_loader]):
     with torch.no_grad():
         for data in set_loader:
             inputs = data
+            inputs = inputs.to(device)
             
             outputs = model(inputs)
             # _, predicted = torch.max(outputs.data, 1)
