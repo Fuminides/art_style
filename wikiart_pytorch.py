@@ -1,3 +1,4 @@
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -55,7 +56,7 @@ test_dataloader = DataLoader(test_data, batch_size=args.batch_size, shuffle=True
 print("Train data size: ", len(train_data))
 # Define the model, loss function and optimizer
 
-model = ResnetArt(25)
+model = ResnetArt(len(np.unique(df_styles_train.iloc[:, 1])))
 model = model.to(device)
     
 criterion = nn.CrossEntropyLoss()

@@ -1,3 +1,5 @@
+import numpy as np
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -13,7 +15,7 @@ from wikiArtResnet import ResnetArt
 
 args_dict = parser.parser.parse_args()
 
-model = ResnetArt(25)
+model = ResnetArt(len(np.unique(df_styles_train.iloc[:, 1])))
 model_checkpoint = torch.load(args_dict.model_path)
 model.load_state_dict(model_checkpoint['model_state_dict'])
 print('Loaded model from checkpoint in epoch: ', model_checkpoint['epoch'])
