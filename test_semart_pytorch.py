@@ -79,5 +79,5 @@ for ix, set_loader in enumerate([train_loader, val_loader, test_loader]):
             
             img_names += img_name
     
-    pd.DataFrame(predictions).to_csv('style_predictions_' + sets_name[ix] + '.csv', index=img_names, columns=style_names)
+        pd.DataFrame(predictions).to_csv('style_predictions_' + sets_name[ix] + '.csv', index=img_names, columns=style_names)
 
