@@ -13,19 +13,18 @@ import parser
 args_dict = parser.parser.parse_args()
 
 model = models.resnet()
-model.load_state_dict(torch.load('model.pt'))
+model_checkpoint = torch.load(args_dict.model_path)
+model.load_state_dict(model_checkpoint['model_state_dict'])
+print('Loaded model from checkpoint in epoch: ', model_checkpoint['epoch'])
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
 model = model.to(device)
     
-cluster_path = '/home/jfumanal/SemArt'
+cluster_path = args_dict.semart_path
 
 
 train_transforms = transforms.Compose([
         transforms.Resize(256),                             # rescale the image keeping the original aspect ratio
         transforms.CenterCrop(256),                         # we get only the center of that rescaled
-        transforms.RandomCrop(224),                         # random crop within the center crop (data augmentation)
-        transforms.RandomHorizontalFlip(),                  # random horizontal flip (data augmentation)
         transforms.ToTensor(),                              # to pytorch tensor
         transforms.Normalize(mean=[0.485, 0.456, 0.406, ],  # ImageNet mean substraction
                              std=[0.229, 0.224, 0.225])
@@ -53,11 +52,16 @@ val_loader = torch.utils.data.DataLoader(
     batch_size=args_dict.batch_size, shuffle=True, pin_memory=True, num_workers=args_dict.workers)
 print('Validation loader with %d samples' % semart_val_loader.__len__())
 
+test_loader = torch.utils.data.DataLoader(
+    semart_test_loader,
+    batch_size=args_dict.batch_size, shuffle=True, pin_memory=True, num_workers=args_dict.workers)
+print('Validation loader with %d samples' % semart_val_loader.__len__())
+
 # Set the model to evaluation mode
 model.eval()
 
 sets_name = ['train', 'val', 'test']
-for ix, set_loader in enumerate([semart_train_loader, semart_val_loader, semart_test_loader]):
+for ix, set_loader in enumerate([train_loader, val_loader, test_loader]):
     # Make predictions on the test set
     predictions = []
     with torch.no_grad():
@@ -65,8 +69,8 @@ for ix, set_loader in enumerate([semart_train_loader, semart_val_loader, semart_
             inputs, labels = data
             labels = labels.to(device)
             outputs = model(inputs)
-            _, predicted = torch.max(outputs.data, 1)
-            predictions.append(predicted)
+            # _, predicted = torch.max(outputs.data, 1)
+            predictions.append(outputs.cpu().numpy())
     
     pd.DataFrame(predictions).to_csv(cluster_path + '/predictions_' + sets_name[ix] + '.csv', index=False)
 

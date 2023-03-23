@@ -12,3 +12,5 @@ parser.add_argument('--data_path', type=str, default='data', help='Path to the d
 parser.add_argument('--train_file', type=str, default='train.csv', help='Path to the train file')
 parser.add_argument('--val_file', type=str, default='test.csv', help='Path to the val file')
 parser.add_argument('--samples', type=float, default=1.0, help='Fraction of samples to use')
+parser.add_argument('--model_path', type=str, help='Path to the model')
+parser.add_argument('--semart_path', type=str, help='Path to the semart dataset')

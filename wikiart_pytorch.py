@@ -98,7 +98,7 @@ def train(epochs):
                 'model_state_dict': model.state_dict(),
                 'optimizer_state_dict': optimizer.state_dict(),
                 'loss': loss,
-                }, args.model_path.split('.')[0] + '_checkpoint.pt')
+                }, args.model_path.split('.')[0] + '_checkpoint_' + str(epoch) + '.pt')
     
     print('Finished Training')
 
