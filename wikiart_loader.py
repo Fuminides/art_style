@@ -10,6 +10,7 @@ def read_image(path):
     # transform = transforms.Compose([transforms.ToTensor()])
     return img 
 
+
 class WikiArtLoader(Dataset):
     def __init__(self, annotations_file, img_dir, transform=None, target_transform=None, samples=1.0):
         if samples < 1.0:
