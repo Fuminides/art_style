@@ -65,7 +65,7 @@ print('Test loader with %d samples' % semart_val_loader.__len__())
 model.eval()
 
 sets_name = ['val', 'train', 'test']
-for ix, set_loader in enumerate([train_loader, val_loader, test_loader]):
+for jx, set_loader in enumerate([train_loader, val_loader, test_loader]):
     # Make predictions on the test set
     img_names = []
     with torch.no_grad():
@@ -83,5 +83,5 @@ for ix, set_loader in enumerate([train_loader, val_loader, test_loader]):
             
             img_names += img_name
 
-            pd.DataFrame(predictions, index=img_names, columns=style_names).to_csv('style_predictions_' + sets_name[ix] + '.csv')
+            pd.DataFrame(predictions, index=img_names, columns=style_names).to_csv('style_predictions_' + sets_name[jx] + '.csv')
 
