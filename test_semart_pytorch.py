@@ -23,7 +23,8 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 model = model.to(device)
     
 cluster_path = args_dict.semart_path
-style_names = ['Abstract_Expressionism', 'Cubism', 'Expressionism', 'Fauvism', 'Impressionism', 'Minimalism', 'Naive_Art_Primitivism', 'Pop_Art', 'Post_Impressionism', 'Realism', 'Rococo', 'Romanticism', 'Surrealism', 'Symbolism', 'Ukiyo_e']
+style_names = ['Abstract_Expressionism', 'Action_painting', 'Analytical_Cubism', 'Art_Nouveau', 'Baroque', 'Color_Field_Painting', 'Contemporary_Realism', 'Cubism','Early_Renaissance','Expressionism','Fauvism','High_Renaissance','Impressionism','Mannerism_Late_Renaissance','Minimalism','Naive_Art_Primitivism','New_Realism','Northern_Renaissance', 'Pointillism', 'Pop_Art', 'Post_Impressionism', 'Realism', 'Rococo', 'Romanticism', 'Symbolism', 'Synthetic_Cubism', 'Ukiyo_e']
+
 
 train_transforms = transforms.Compose([
         transforms.Resize(256),                             # rescale the image keeping the original aspect ratio
